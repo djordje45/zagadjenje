@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+		
+		<title>AirQ-Beograd</title>
+
+		<!-- Loading third party fonts -->
+		<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+		<link href="static/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+		<!-- Loading main css file -->
+		<link rel="stylesheet" href="static/style.css">
+		
+		<!--[if lt IE 9]>
+		<script src="js/ie-support/html5.js"></script>
+		<script src="js/ie-support/respond.js"></script>
+		<![endif]-->
+		<script type = "text/javascript">
+			function myFunction() {
+				setInterval(displayImage, 1500);
+			  }
+			function displayImage() {
+				var i;
+				for (i = 1; i < 13; i++) {
+					var c = new Date().getTime();
+					var images = "https://stream.uzivobeograd.rs/live/cam_"+i+".jpg?_=";
+					document.getElementById("jpg"+i).src = images+c;
+				}
+			}
+		</script>
+
+	 </head>
+	{% load static %}
+
+	<body onload='myFunction()'>
+		
+		<div class="site-content">
+			<div class="site-header">
+				<div class="container">
+					<a href="index.html" class="branding">
+						<img src="static/images/logo.png" alt="" class="logo">
+						<div class="logo-type">
+							<h1 class="site-title">Vazduh u Beogradu</h1>
+							<small class="site-description">Prognoza kvaliteta vazduha u Beogradu</small>
+						</div>
+					</a>
+
+					<!-- Default snippet for navigation -->
+					<div class="main-navigation">
+						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+						<ul class="menu">
+							<li class="menu-item"><a href="index.html">Home</a></li>
+							<li class="menu-item"><a href="live-cameras.html">Kamere</a></li>
+							<li class="menu-item current-menu-item"><a href="photos.html">Vremenska prognoza</a></li>
+							<li class="menu-item"><a href="contact.html">Kontakt</a></li>
+						</ul> <!-- .menu -->
+					</div> <!-- .main-navigation -->
+
+					<div class="mobile-navigation"></div>
+
+				</div>
+			</div> <!-- .site-header -->
+</html>
+			<main class="main-content">
+				<div class="container">
+					<div class="breadcrumb">
+						<a href="index.html">Home</a>
+						<span>Vremenska prognoza</span>
+					</div>
+				</div>
+
+				
+			<br>
+
+				
+				<div class="cameraMap">
+					<iframe width="100%" height="900" src="https://embed.windy.com/embed2.html?lat=43.085&lon=19.995&zoom=6&level=surface&overlay=rain&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=true&detailLat=44.820&detailLon=20.460&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1" frameborder="0"></iframe>        </div>
+				</div>
+			</div>
+			
+			<br>
+			
+			
+				</div>
+				<!-- Content END -->
+	
+			</div>
+			
+			
+					<!--[if lte IE 8]><!-->
+									<script type="text/javascript" src="/js/browser-detection.js"></script>
+							<!--<![endif]-->
+			
+							
+					<!--[if !(lte IE 8)]><!-->
+									<script type="text/javascript">
+								App.Config.surveillance = [];
+							</script>
+									
+								<script src="/js/naxi-site.js"></script>
+							
+					<!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> --> 
+			<script>
+			var MJPEGPlayer = function(config) {
+				
+				config = Object.assign({}, MJPEGPlayer.defaultConfig, config); //apply default config
+				
+				var player = this;
+				
+				var started = false;
+				var interval = null;
+				
+				var containerIsImg = false;
+				
+				//initialize image tag and config
+				if (!config['container'] || !document.getElementById(config['container'])) {
+					throw 'No config key "container" or no element with id: ' + config['container'];
+				}
+				
+				var container = document.getElementById(config['container']);
+				
+				if (container instanceof HTMLImageElement) {
+					
+					containerIsImg = true;
+					
+					player.image = container;
+					
+					if (!config['url'] && player.image.src) {
+						config['url'] = player.image.src;
+					}
+					
+				} else {
+					
+					player.image = new Image();
+			
+					//empty container
+					while(container.firstChild) container.removeChild(container.firstChild);
+					
+					//append image
+					container.appendChild(player.image);
+				}
+				
+				//final check for config
+				if (!config['url']) {
+					throw 'Invalid config, "url" must be set or "src" attribute must be present on img target element';
+				}
+			
+				container.setAttribute('mjpegPlayer', player);
+				
+				//default styles for image
+				if (!config['width']) {
+					player.image.style.maxWidth = '100%';
+					player.image.style.width = '100%';
+				}
+			
+				if (!config['height']) {
+					player.image.style.maxHeight = '100%';
+					player.image.style.height = '100%';
+				}
+				
+				
+				player.refreshImage = function () {
+					
+					player.image.src = config['url'] + '?_=' + Date.now();
+			
+					//correct width
+					player.image.onload = function() {
+						if (config['width'] ) {
+							player.image.width = config['width'];
+						}
+			
+						if (config['height'] ) {
+							player.image.height = config['height'];
+						}
+					};
+				};
+				
+				player.play = function () {
+					//console.log('Playing player: ' + config['container']);
+					if (!interval) {
+						interval = setInterval(function () {
+							player.refreshImage();
+						}, config['refresh_rate']);
+					}
+				};
+			
+				player.pause = function () {
+					//console.log('Pausing layer: ' + config['container']);
+					if (interval) {
+						clearInterval(interval);
+						interval = null;
+					}
+				};
+			
+				player.toggle = function () {
+					if (interval) {
+						player.pause();
+					} else {
+						player.play();
+					}
+				};
+			
+				player.destroy = function () {
+			
+					player.pause();
+			
+					if (!containerIsImg && player.image && player.image.parentNode) {
+						player.image.parentNode.removeChild(player.image);
+					}
+					//console.log('Destroyed player: ' + config['container']);
+				};
+			
+				if (config['toggle_on_click']) {
+					player.image.addEventListener("click", function () {
+						player.toggle();
+					});
+				}
+			
+				player.refreshImage();
+			
+				if (config['auto_play']) {
+					player.play();
+				}	
+			
+				return player;
+			};
+			
+			MJPEGPlayer.defaultConfig = {
+				'container': null,
+				'url': null,
+				'auto_play': false,
+				'width': null,
+				'height': null,
+				'refresh_rate': 800,
+				'toggle_on_click': false
+			};
+			</script>
+			<script type="text/javascript">
+				
+				var reloadSurveillance =  function() {
+						
+					$('.js_surveillance2').each(function() {
+			
+						var surveilanceContainer = $('#splayer-container-' + $(this).data('id'));
+						var surveilancePlayer = surveilanceContainer.find('.splayer');
+						if ($(this).find('[type="checkbox"]').is(':checked')) {
+							surveilanceContainer.show();
+							if (!surveilancePlayer.data('player')) {
+								surveilancePlayer.data('player', new MJPEGPlayer({
+									'container': surveilancePlayer.attr('id'),
+									'url': surveilancePlayer.data('url')
+								}));
+							}
+							surveilancePlayer.data('player').play();
+						} else {
+							surveilanceContainer.hide();
+							if (surveilancePlayer.data('player')) {
+								surveilancePlayer.data('player').pause();
+							}
+						}
+					});
+				};
+			
+			$('.js_surveillance2').click(reloadSurveillance);
+			
+			var zoomedPlayer = null;
+			$('.js_zoom_in').click(function (e) {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+			
+				$('#js_loaded_surveillance').hide();
+				
+				if (zoomedPlayer) {
+					zoomedPlayer.destroy();
+				}
+				
+				$('#js_zoomed_surveillance_name').html($(this).data('name'));
+			
+				zoomedPlayer = new MJPEGPlayer({
+					'container': 'js_zoomed_surveillance_video',
+					'url': $(this).data('url'),
+					'auto_play': true
+				});
+			
+				$('#js_zoomed_surveillance').show();
+			});
+			
+			$('#js_zoomed_surveillance_zoom_out').click(function (e) {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+				
+				$('#js_zoomed_surveillance').hide();
+				$('#js_loaded_surveillance').show();
+			
+				if (zoomedPlayer) {
+					zoomedPlayer.destroy();
+				}
+			});
+				
+			reloadSurveillance();
+			</script>
+						<script type="text/javascript">
+							$(document).ready(function() {
+								$('#slider-3d1755').flexslider({
+									animation: 'slide',
+									itemWidth: 100,
+									itemMargin: 0,
+									controlNav: false
+								});
+							});
+						</script>
+							<script type="text/javascript">
+					var timeTrigger = 10000;
+					function ping(timeTrigger) {
+						setTimeout(function() {
+							$.ajax({
+								type: 'GET',
+								url: '/stations/oah.json',
+								dataType: 'json',
+								success: function (data) {
+									if (data.p && data.h) {
+										if ($('#js_top5List').length > 0) {
+											$('#js_top5List').html(data.p);
+										}
+										if ($('#js_onAir').length > 0) {
+											$('#js_onAir').html(data.h);
+										}
+										ping(timeTrigger);
+									}
+								}
+							});
+						}, timeTrigger);
+					}
+					// Init
+					ping(timeTrigger);
+				</script>
+				
+							<!--<![endif]-->
+					
+					<script>
+						(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+						(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+						m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+						})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			
+						ga('create', 'UA-54996917-1', 'auto');
+						ga('send', 'pageview');
+					</script>
+	
+		
+	</body>
+
+</html>

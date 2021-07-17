@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+		
+		<title>AirQ-Beograd</title>
+
+		<!-- Loading third party fonts -->
+		<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+		<link href="static/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+		<!-- Loading main css file -->
+		<link rel="stylesheet" href="static/style.css">
+		{% load static %}	
+		<!--[if lt IE 9]>
+		<script src="js/ie-support/html5.js"></script>
+		<script src="js/ie-support/respond.js"></script>
+		<![endif]-->
+		<script type = "text/javascript">
+			function myFunction() {
+				setInterval(displayImage, 1500);
+				oboji();
+			  }
+			function displayImage() {
+				var i;
+				for (i = 1; i < 9; i++) {
+					var c = new Date().getTime();
+					var images = "https://stream.uzivobeograd.rs/live/cam_"+i+".jpg?_=";
+					document.getElementById("jpg"+i).src = images+c;
+				}
+			}			
+			function oboji() {
+				var x = document.getElementsByName("pm25");
+				for(i=0; i<x.length; i++){
+					var k = Number(x[i].innerText)
+					if (k<20) {
+						x[i].style.color = 'rgb(2,208,85)';}
+						else if (k<50){
+							x[i].style.color = 'rgb(125, 186, 56)'
+						}else if (k<100){
+							x[i].style.color = 'rgb(204, 181, 73)'
+						}else{
+							x[i].style.color = 'rgb(211, 55, 31)'
+						}}
+				var x = document.getElementsByName("pm10");
+				for(i=0; i<x.length; i++){
+					var k = Number(x[i].innerText)
+					if (k<20) {
+						x[i].style.color = 'rgb(2,208,85)';}
+						else if (k<50){
+							x[i].style.color = 'rgb(125, 186, 56)'
+						}else if (k<100){
+							x[i].style.color = 'rgb(204, 181, 73)'
+						}else{
+							x[i].style.color = 'rgb(211, 55, 31)'
+						}
+			}
+			var x = document.getElementsByName("so2");
+			for(i=0; i<x.length; i++){
+				var k = Number(x[i].innerText)
+				if (k<20) {
+					x[i].style.color = 'rgb(2,208,85)';}
+					else if (k<20){
+						x[i].style.color = 'rgb(125, 186, 56)'
+					}else if (k<40){
+						x[i].style.color = 'rgb(204, 181, 73)'
+					}else{
+						x[i].style.color = 'rgb(211, 55, 31)'
+					}
+		}
+		var x = document.getElementsByName("no2");
+			for(i=0; i<x.length; i++){
+				var k = Number(x[i].innerText)
+				if (k<20) {
+					x[i].style.color = 'rgb(2,208,85)';}
+					else if (k<40){
+						x[i].style.color = 'rgb(125, 186, 56)'
+					}else if (k<80){
+						x[i].style.color = 'rgb(204, 181, 73)'
+					}else{
+						x[i].style.color = 'rgb(211, 55, 31)'
+					}
+		}
+		var x = document.getElementsByName("o3");
+			for(i=0; i<x.length; i++){
+				var k = Number(x[i].innerText)
+				if (k<20) {
+					x[i].style.color = 'rgb(2,208,85)';}
+					else if (k<40){
+						x[i].style.color = 'rgb(125, 186, 56)'
+					}else if (k<80){
+						x[i].style.color = 'rgb(204, 181, 73)'
+					}else{
+						x[i].style.color = 'rgb(211, 55, 31)'
+					}}
+		var vetar = document.getElementById("vetar");
+						var vetarugao = Number(document.getElementById("vetar").innerText)
+						if (vetarugao<23) {
+							vetar.innerText = 'Severni'}
+							else if (vetarugao<68){
+								vetar.innerText = 'Severoistočni'}
+							else if (vetarugao<113){
+								vetar.innerText = 'Istočni'}
+							else if (vetarugao<158){
+								vetar.innerText = 'Jugoistočni'}
+							else if (vetarugao<203){
+								vetar.innerText = 'Južni'}
+							else if (vetarugao<248){
+								vetar.innerText = 'Jugozapadni'}
+							else if (vetarugao<293){
+								vetar.innerText = 'Zapadni'}
+							else if (vetarugao<338){
+								vetar.innerText = 'Severozapadni'}
+							else{
+								vetar.innerText = 'Severni'}
+		}
+		</script>
+
+	 </head>
+
+
+	<body onload='myFunction()'>
+		<div class="site-content">
+			<div class="site-header">
+				<div class="container">
+					<a href="index.html" class="branding">
+						<img src="static/images/logo.png" alt="" class="logo">
+						<div class="logo-type">
+							<h1 class="site-title">Vazduh u Beogradu</h1>
+							<small class="site-description">Prognoza kvaliteta vazduha u Beogradu</small>
+						</div>
+					</a>
+
+					<!-- Default snippet for navigation -->
+					<div class="main-navigation">
+						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+						<ul class="menu">
+							<li class="menu-item current-menu-item"><a href="index.html">Home</a></li>
+							<li class="menu-item"><a href="live-cameras.html">Kamere</a></li>
+							<li class="menu-item"><a href="photos.html">Vremenska prognoza</a></li>
+							<li class="menu-item"><a href="contact.html">Kontakt</a></li>
+						</ul> <!-- .menu -->
+					</div> <!-- .main-navigation -->
+
+					<div class="mobile-navigation"></div>
+
+				</div>
+			</div> <!-- .site-header -->
+
+			<!-- <div class="hero" data-bg-image="images/banner.png">
+				<div class="container">
+					<form action="#" class="find-location">
+						<input type="text" placeholder="Find your location...">
+						<input type="submit" value="Find">
+					</form>
+
+				</div> -->
+			</div>
+			<div class="forecast-table">
+				<div class="container">
+					<div class="forecast-container">
+						<div class="today forecast">
+							<div class="forecast-header">
+								<div class="day" id='day'></div>
+								<div class="date" id='datum'></div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="location">Beograd</div>
+										<div class="numero" name="pm25">{{danaspm25}}</div><div class="day">PM2.5</div>
+										<div class="numero" name="pm10">{{danaspm10}}</div><div class="day">PM10</div>
+										<div class="numero" name="so2">{{danasso2}}</div><div class="day">SO2</div>
+										<div class="numero" name="no2">{{danasno2}}</div><div class="day">NO2</div>
+										<div class="numero" name="o3">{{danaso3}}</div><div class="day">O3</div>
+								<div class="degree">
+									<div class="num" id='datum_dan'>{{temperature}}<sup>o</sup>C</div>
+									<div class="forecast-icon">
+										<img src="static/images/icons/icon-1.svg" alt="" width=90>
+									</div>	
+								</div>
+								<span><img src="static/images/icon-umberella.png" alt="">{{padavine}}%</span>
+								<span><img src="static/images/icon-wind.png" alt="">{{vetar_brz}}m/s</span>
+								<span id="vetar"><img src="static/images/icon-compass.png" alt="">{{vetar_dir}}</span>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day" id='sutra'>Tuesday</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<!-- <div class="forecast-icon">
+									<img src="static/images/icons/icon-3.svg" alt="" width=48>
+								</div> -->
+								<div class="numero" name="pm25">{{pm251}}</div><div class="day">PM2.5</div>
+								<div class="numero" name="pm10">{{pm101}}</div><div class="day">PM10</div>
+								<div class="numero" name="so2">{{so21}}</div><div class="day">SO2</div>
+								<div class="numero" name="no2">{{no21}}</div><div class="day">NO2</div>
+								<div class="numero" name="o3">{{o31}}</div><div class="day">O3</div>
+								<div class="degree" id="so2">{{sutramax}}<sup>o</sup>C</div>
+								<small>{{sutramin}}<sup>o</sup></small>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day" id='prekosutra'>Wednesday</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<!-- <div class="forecast-icon">
+									<img src="static/images/icons/icon-5.svg" alt="" width=48>
+								</div> -->
+								<div class="numero" name="pm25">{{pm252}}</div><div class="day">PM2.5</div>
+								<div class="numero" name="pm10">{{pm102}}</div><div class="day">PM10</div>
+								<div class="numero" name="so2">{{so22}}</div><div class="day">SO2</div>
+								<div class="numero" name="no2">{{no22}}</div><div class="day">NO2</div>
+								<div class="numero" name="o3">{{o32}}</div><div class="day">O3</div>
+								<div class="degree">{{drugimax}}<sup>o</sup>C</div>
+								<small>{{drugimin}}<sup>o</sup></small>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day" id='trecidan'>Thursday</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<!-- <div class="forecast-icon">
+									<img src="static/images/icons/icon-7.svg" alt="" width=48>
+								</div> -->
+								<div class="numero" name="pm25">{{pm253}}</div><div class="day">PM2.5</div>
+								<div class="numero" name="pm10">{{pm103}}</div><div class="day">PM10</div>
+								<div class="numero" name="so2">{{so23}}</div><div class="day">SO2</div>
+								<div class="numero" name="no2">{{no23}}</div><div class="day">NO2</div>
+								<div class="numero" name="o3">{{o33}}</div><div class="day">O3</div>
+								<div class="degree">{{trecimax}}<sup>o</sup>C</div>
+								<small>{{trecimin}}<sup>o</sup></small>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day" id='cetvrtidan'>Friday</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<!-- <div class="forecast-icon">
+									<img src="static/images/icons/icon-12.svg" alt="" width=48>
+								</div> -->
+								<div class="numero" name="pm25">{{pm254}}</div><div class="day">PM2.5</div>
+								<div class="numero" name="pm10">{{pm104}}</div><div class="day">PM10</div>
+								<div class="numero" name="so2">{{so24}}</div><div class="day">SO2</div>
+								<div class="numero" name="no2">{{no24}}</div><div class="day">NO2</div>
+								<div class="numero" name="o3">{{o34}}</div><div class="day">O3</div>
+								<div class="degree">{{cetvrtimax}}<sup>o</sup>C</div>
+								<small>{{cetvrtimin}}<sup>o</sup></small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<main class="main-content">
+				<div class="fullwidth-block" data-bg-color="#262936">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-5">
+								<div class="news">
+									<div class="date">PM2.5</div>
+									<h3><a href="#">Čestice manje od 2.5 μm </a></h3>
+									<p>Zahvaljujući svojoj maloj veličini, čestice manje od 2.5 mikrometara su sposobne da prođu nos i grlo, te mogu da prodru duboko u pluća, a čak mogu ući i u krvotok. Izloženost prema PM 2.5 μm u periodu od nekoliko sati do nekoliko nedelja, može izazvati kardiovaskularna oboljenja, imala ona fatalan ishod ili ne; dugotrajna izloženost finim česticama (npr. nekoliko godina) povećava smrtnost izazvanu kardiovaskularnim oboljenjima u daleko većoj meri nego izloženost od nekoliko dana i takođe smanjuje životni vek populacije za nekoliko meseci do nekoliko godina</p>
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="news">
+									<div class="date">PM10</div>
+									<h3><a href="#">Čestice između 2.5 i 10 μm</a></h3>
+									<p>Većina stručnjaka PM10, a posebno PM2.5 čestice smatra najopasnijim zagađivačima vazduha za zdravlje ljudi. Mogu da prodru duboko u plućne prolaze i uđu u krvotok i tako izazovu kardiovaskularna, cerebrovaskularna i respiratorna oštećenja. Štetne su, takođe, i za životnu sredinu i poljoprivrednu proizvodnju.</p>
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="news">
+									<div class="date">SO2</div>
+									<h3><a href="#">Sumpor dioksid </a></h3>
+									<p>Sumpor dioksid reaguje sa vodenom parom i nastaje sumporna kiselina, koja se smatra glavnim uzrokom kiselih kiša. Sastavni je deo i smoga, a može dospeti i u sneg i maglu. Sumporna kiselina negativno utiče na biljke, ali i cele ekosisteme.</p>
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="news">
+									<div class="date">NO2</div>
+									<h3><a href="#">Azot dioksid </a></h3>
+									<p>Najveća količina azotnih oksida nastaje pri radu elektrana i motornih vozila koje za svoj rad koriste tečno gorivo, pri čemu se stvara visoka temperatura što izaziva reakciju između kiseonika i elementarnog azota iz vazduha, a čiji su produkti azotni oksidi. Azot dioksid može da se veže za hemoglobin pri čemu se stvara oksiazohemoglobin koji onemogućava osnovnu funkciju hemoglobina – prenos kiseonika. Jedinjenja azota se danas ubrajaju u grupu vodećih karcinogena pluća, želuca i mokraćne bešike.</p>
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="news">
+									<div class="date">O3</div>
+									<h3><a href="#">Ozon </a></h3>
+									<p>Ozon u višim slojevima atmosfere štiti našu kožu odbijanjem štetnog ultraljubičastog zračenja, ali ozon u prizemnim slojevima predstavlja ključnu komponentu smoga. Nastaje tokom toplih dana kada štetni gasovi iz automobila, elektrana, domaćinstava i industrije počinju da se uslovni rečeno “peku” na vrelom Suncu, što mnogim ljudima otežava disanje. Visok nivo prizemnog ozona štetan je za sve, decu, starije osobe, pacijente sa respiratornim oboljenjima, kao i one koji rade ili su zbog rekreacije uglavnom van kuće. Usled ovog problema, počelo je u nekim zemljama praćenje prisustva prizemnog ozona i predviđanje obima zagađenja.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="fullwidth-block">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-4">
+								<h2 class="section-title">Glavni zagađivači vazduha</h2>
+								<ul class="arrow-feature">
+									<li>
+										<h3>Primarni zagađivači vazduha</h3>
+										<p>Emituju se direktno iz izvora zagađenja u atmosferu. To su primarne PM čestice, sumpor dioksid, azotni oksidi, amonijak, metan...</p>
+									</li>
+									<li>
+										<h3>Sekundarni zagađivači vazduha</h3>
+										<p>Formiraju se u atmosferi kroz reakcije primarnih zagađivača. To su sekundarne PM čestice, ozon, itd.</p>
+									</li>
+								</ul>
+							</div>
+
+
+							<div class="col-md-4">
+								<h2 class="section-title"><a href="/live-cameras.html"> Kamere uzivo</a>	</h2>
+								<table>
+									<tr>
+										<th><a href="/live-cameras.html"><img src="https://stream.uzivobeograd.rs/live/cam_1.jpg?_="  id='jpg1' width="200"></a></th>
+										<th><a href="/live-cameras.html"><img src="https://stream.uzivobeograd.rs/live/cam_2.jpg?_="  id='jpg2' width="200"></a></th>
+										<th><a href="/live-cameras.html"><img src="https://stream.uzivobeograd.rs/live/cam_3.jpg?_="  id='jpg3' width="200"></a></th>
+										<th><a href="/live-cameras.html"><img src="https://stream.uzivobeograd.rs/live/cam_4.jpg?_="  id='jpg4' width="200"></a></th>
+									</tr>
+									<tr>
+										<td><a href="/live-cameras.html"><img src="https://stream.uzivobeograd.rs/live/cam_5.jpg?_="  id='jpg5' width="200"></a></td>
+										<td><a href="/live-cameras.html"><img src="https://stream.uzivobeograd.rs/live/cam_6.jpg?_="  id='jpg6' width="200"></a></td>
+										<td><a href="/live-cameras.html"><img src="https://stream.uzivobeograd.rs/live/cam_7.jpg?_="  id='jpg7' width="200"></a></td>
+										<td><a href="/live-cameras.html"><img src="https://stream.uzivobeograd.rs/live/cam_8.jpg?_="  id='jpg8' width="200"></a></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main> <!-- .main-content -->
+			<footer class="site-footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8">
+							<form action="#" class="subscribe-form">
+								<input type="text" placeholder="Enter your email to subscribe...">
+								<input type="submit" value="Subscribe">
+							</form>
+						</div>
+						<div class="col-md-3 col-md-offset-1">
+							<div class="social-links">
+								<a href="http://www.facebook.com/djoleee"><i class="fa fa-facebook"></i></a>
+								<a href="" title='+381 64 957 20 67'><i class="fa fa-phone" ></i></a>
+								<a href="#"><i class="fa fa-github"></i></a>
+								<a href="#"><i class="fa fa-instagram"></i></a>
+							</div>
+						</div>
+					</div>
+
+					<p class="colophon">2021 Đorđe Drobnjaković</p>
+				</div>
+			</footer> <!-- .site-footer -->
+		</div>
+
+
+
+
+
+
+	</body>
+	<script type = "text/javascript">
+		danovi={0:'Nedelja',1:'Ponedeljak',2:'Utorak',3:'Sreda',4:'Četvrtak',5:'Petak',6:'Subota',7:'Nedelja',8:'Ponedeljak',9:'Utorak',10:'Sreda',11:'Četvrtak',12:'Petak',13:'Subota'}
+		meseci={0:'Jan',1:'Feb',2:'Mar',3:'Apr',4:'Maj',5:'Jun',6:'Jul',7:'Avg',8:'Sep',9:'Okt',10:'Nov',11:'Dec'}
+		var d = new Date().getDay();
+		var dt = new Date().getDate();
+		var m = new Date().getMonth();
+		document.getElementById("day").innerHTML = danovi[d];
+		document.getElementById("sutra").innerHTML = danovi[d+1];
+		document.getElementById("prekosutra").innerHTML = danovi[d+2];
+		document.getElementById("trecidan").innerHTML = danovi[d+3];
+		document.getElementById("cetvrtidan").innerHTML = danovi[d+4];
+		document.getElementById("datum").innerHTML = dt +". "+meseci[m];
+	</script>
+</html>
